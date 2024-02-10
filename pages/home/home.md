@@ -1,5 +1,10 @@
 <|text-center|
 <br/>
+<h2>Welcome to the English Premier League Visualization Tool!</h2>
+>
+
+<|text-center|
+<br/>
 **Choose your team!**
 >
 <|layout|gap=10px|class_name=container align_center|
@@ -13,3 +18,6 @@
 </center>
 
 |>
+
+<br/>
+<|Generate Visualization|button|on_action=button_pressed|>
