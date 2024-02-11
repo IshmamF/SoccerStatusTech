@@ -4,4 +4,6 @@
 <center>
 <|{selected_team}|toggle|lov={values}|>
 </center>
+<|{data}|chart|type=pie|values=Count|labels=Country|>
+<|{logo}|image>
 |>
