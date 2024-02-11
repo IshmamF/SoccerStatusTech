@@ -102,6 +102,7 @@ def generate_predictions(team):
             return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
 
 
+
 def button_pressed(state):
     state.showGraphs = True
     state.values[0] = state.value1
