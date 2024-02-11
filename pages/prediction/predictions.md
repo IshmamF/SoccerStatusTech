@@ -7,19 +7,23 @@
 <|layout|gap=10px|class_name=container align_center|
 
 <|part|render={showPred}|
-<|card|
-<|{home_team_1}: {home_goals_1}|text|class_name=h3|>
+<|{home_team_1}|text|>
+:
+<|{home_goals_1}|text|>
 
-<|{away_team_1}: {away_goals_1}|text|class_name=h3|>
-|>
+<|{away_team_1}|text|>
+:
+<|{away_goals_1}|text|>
 |>
 
 
 <|part|render={showPred}|
-<|card|
-<|{home_team_2}: {home_goals_2}|text|class_name=h3|>
+<|{home_team_2}|text|>
+:
+<|{home_goals_2}|text|>
 
-<|{away_team_2}: {away_goals_2}|text|class_name=h3|>
-|>
+<|{away_team_2}|text|>
+:
+<|{away_goals_2}|text|>
 |>
 |>

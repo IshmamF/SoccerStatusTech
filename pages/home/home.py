@@ -97,7 +97,7 @@ def generate_predictions(team):
                                                   "Goals Scored Last Season", "Goals Conceded by Opponent Last Season",
                                                   "Points Obtained This Season", "Points Obtained by Opponent This Season",
                                                   "Goals Scored This Season", "Goals Conceded by Opponent This Season"])
-            model = keras.models.load_model('./prediction_model')
+            model = keras.models.load_model('../prediction_model')
             predictions = model.predict(df_to_predict)
             return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
 
@@ -108,13 +108,13 @@ def button_pressed(state):
     state.values[1] = state.value2
 
     team_names_mapping = {"Arsenal": "Arsenal FC", "Bournemouth": "AFC Bournemouth", "Aston Villa": "Aston Villa FC", 
-                          "Brentford": "Brentford FC", "Brighton Hove": "Brighton & Hove Albion FC", "Burnley": "Burnley FC",
+                          "Brentford": "Brentford FC", "Brighton": "Brighton & Hove Albion FC", "Burnley": "Burnley FC",
                           "Chelsea": "Chelsea FC", "Crystal Palace": "Crystal Palace FC", "Everton": "Everton FC", 
                           "Fulham": "Fulham FC", "Liverpool": "Liverpool FC", "Luton Town": "Luton Town FC", 
                           "Man City": "Manchester City FC", "Man United": "Manchester United FC", 
                           "Newcastle": "Newcastle United FC", "Nottingham": "Nottingham Forest FC", 
-                          "Sheffield Utd": "Sheffield United FC", "Tottenham": "Tottenham Hotspur FC", 
-                          "West Ham": "West Ham United FC", "Wolverhampton": "Wolverhampton Wanderers FC"}
+                          "Sheffield United": "Sheffield United FC", "Tottenham": "Tottenham Hotspur FC", 
+                          "West Ham": "West Ham United FC", "Wolves": "Wolverhampton Wanderers FC"}
     state['predictions'].home_team_1, state['predictions'].home_goals_1, state['predictions'].away_team_1, state['predictions'].away_goals_1 = generate_predictions(team_names_mapping[state.value1])
     state['predictions'].home_team_2, state['predictions'].home_goals_2, state['predictions'].away_team_2, state['predictions'].away_goals_2 = generate_predictions(team_names_mapping[state.value2])
     state['predictions'].showPred = True
