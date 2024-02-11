@@ -3,7 +3,7 @@ import requests
 from tensorflow import keras
 from taipy.gui import Markdown
 
-def generate_predictions(team):
+def generate_predictions(team, team2=""):
     teams_to_id_mapping = {"Arsenal FC": "57", "AFC Bournemouth": "1044", "Aston Villa FC": "58", "Brentford FC": "402",
                        "Brighton & Hove Albion FC": "397", "Burnley FC": "328", "Chelsea FC": "61", "Crystal Palace FC": "354",
                        "Everton FC": "62", "Fulham FC": "63", "Liverpool FC": "64", "Luton Town FC": "389",
@@ -57,49 +57,54 @@ def generate_predictions(team):
     teams_stats[23]["West Ham United FC"] = [36, 36, 36, 23]
     teams_stats[23]["Wolverhampton Wanderers FC"] = [32, 37, 39, 24]
     
-    url = "https://api.football-data.org/v4/teams/" + teams_to_id_mapping[team] + "/matches"
-    headers = {'X-Auth-Token': 'e5b570312a1546f4a5a9d0675c3ad644'}
-    params = {'season': '2023'}
+    if team2 != "":
+        homeTeam = team
+        awayTeam = team2
+    else:
+        url = "https://api.football-data.org/v4/teams/" + teams_to_id_mapping[team] + "/matches"
+        headers = {'X-Auth-Token': 'e5b570312a1546f4a5a9d0675c3ad644'}
+        params = {'season': '2023'}
 
-    response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers, params=params)
 
-    data = response.json()
-    for match in data["matches"]:
-        if match["competition"]["name"] == "Premier League" and match["status"] == "TIMED":
-            homeTeam = match["homeTeam"]["name"]
-            awayTeam = match["awayTeam"]["name"]
-            print("home: ", homeTeam)
-            print("away: ", awayTeam)
-            i = 23
-            row1 = [1, 0, 1, 1, 1, 1, 0, 0, 0, 0]
-            row2 = [0, 1, 1, 1, 1, 1, 0, 0, 0, 0]
-            if homeTeam in teams[i - 1]:
-                row1[2] = teams_stats[i - 1][homeTeam][0] / 38
-                row1[4] = teams_stats[i - 1][homeTeam][1] / 38
-                row2[3] = teams_stats[i - 1][homeTeam][0] / 38
-                row2[5] = teams_stats[i - 1][homeTeam][2] / 38
-            if awayTeam in teams[i - 1]:
-                row1[3] = teams_stats[i - 1][awayTeam][0] / 38
-                row1[5] = teams_stats[i - 1][awayTeam][2] / 38
-                row2[2] = teams_stats[i - 1][awayTeam][0] / 38
-                row2[4] = teams_stats[i - 1][awayTeam][1] / 38
-            row1[6] = teams_stats[i][homeTeam][0] / teams_stats[i][homeTeam][3]
-            row1[8] = teams_stats[i][homeTeam][1] / teams_stats[i][homeTeam][3]
-            row2[7] = teams_stats[i][homeTeam][0] / teams_stats[i][homeTeam][3]
-            row2[9] = teams_stats[i][homeTeam][2] / teams_stats[i][homeTeam][3]
-            row1[7] = teams_stats[i][awayTeam][0] / teams_stats[i][awayTeam][3]
-            row1[9] = teams_stats[i][awayTeam][2] / teams_stats[i][awayTeam][3]
-            row2[6] = teams_stats[i][awayTeam][0] / teams_stats[i][awayTeam][3]
-            row2[8] = teams_stats[i][awayTeam][1] / teams_stats[i][awayTeam][3]
-            df_to_predict = pd.DataFrame([row1, row2], 
-                                         columns=["Home Team", "Away Team",
-                                                  "Points Obtained Last Season", "Points Obtained by Opponent Last Season",
-                                                  "Goals Scored Last Season", "Goals Conceded by Opponent Last Season",
-                                                  "Points Obtained This Season", "Points Obtained by Opponent This Season",
-                                                  "Goals Scored This Season", "Goals Conceded by Opponent This Season"])
-            model = keras.models.load_model('./prediction_model')
-            predictions = model.predict(df_to_predict)
-            return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
+        data = response.json()
+        for match in data["matches"]:
+            if match["competition"]["name"] == "Premier League" and match["status"] == "TIMED":
+                homeTeam = match["homeTeam"]["name"]
+                awayTeam = match["awayTeam"]["name"]
+                print("home: ", homeTeam)
+                print("away: ", awayTeam)
+                break
+    i = 23
+    row1 = [1, 0, 1, 1, 1, 1, 0, 0, 0, 0]
+    row2 = [0, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+    if homeTeam in teams[i - 1]:
+        row1[2] = teams_stats[i - 1][homeTeam][0] / 38
+        row1[4] = teams_stats[i - 1][homeTeam][1] / 38
+        row2[3] = teams_stats[i - 1][homeTeam][0] / 38
+        row2[5] = teams_stats[i - 1][homeTeam][2] / 38
+    if awayTeam in teams[i - 1]:
+        row1[3] = teams_stats[i - 1][awayTeam][0] / 38
+        row1[5] = teams_stats[i - 1][awayTeam][2] / 38
+        row2[2] = teams_stats[i - 1][awayTeam][0] / 38
+        row2[4] = teams_stats[i - 1][awayTeam][1] / 38
+    row1[6] = teams_stats[i][homeTeam][0] / teams_stats[i][homeTeam][3]
+    row1[8] = teams_stats[i][homeTeam][1] / teams_stats[i][homeTeam][3]
+    row2[7] = teams_stats[i][homeTeam][0] / teams_stats[i][homeTeam][3]
+    row2[9] = teams_stats[i][homeTeam][2] / teams_stats[i][homeTeam][3]
+    row1[7] = teams_stats[i][awayTeam][0] / teams_stats[i][awayTeam][3]
+    row1[9] = teams_stats[i][awayTeam][2] / teams_stats[i][awayTeam][3]
+    row2[6] = teams_stats[i][awayTeam][0] / teams_stats[i][awayTeam][3]
+    row2[8] = teams_stats[i][awayTeam][1] / teams_stats[i][awayTeam][3]
+    df_to_predict = pd.DataFrame([row1, row2], 
+                                 columns=["Home Team", "Away Team",
+                                          "Points Obtained Last Season", "Points Obtained by Opponent Last Season",
+                                          "Goals Scored Last Season", "Goals Conceded by Opponent Last Season",
+                                          "Points Obtained This Season", "Points Obtained by Opponent This Season",
+                                          "Goals Scored This Season", "Goals Conceded by Opponent This Season"])
+    model = keras.models.load_model('./prediction_model')
+    predictions = model.predict(df_to_predict)
+    return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
 
 
 
@@ -118,6 +123,7 @@ def button_pressed(state):
                           "West Ham": "West Ham United FC", "Wolverhampton": "Wolverhampton Wanderers FC"}
     state['predictions'].home_team_1, state['predictions'].home_goals_1, state['predictions'].away_team_1, state['predictions'].away_goals_1 = generate_predictions(team_names_mapping[state.value1])
     state['predictions'].home_team_2, state['predictions'].home_goals_2, state['predictions'].away_team_2, state['predictions'].away_goals_2 = generate_predictions(team_names_mapping[state.value2])
+    state['predictions'].team_1, state['predictions'].goals_1, state['predictions'].team_2, state['predictions'].goals_2 = generate_predictions(team_names_mapping[state.value1], team_names_mapping[state.value2])
     state['predictions'].showPred = True
 
 home_md = Markdown("home.md")    
