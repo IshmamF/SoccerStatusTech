@@ -97,7 +97,7 @@ def generate_predictions(team):
                                                   "Goals Scored Last Season", "Goals Conceded by Opponent Last Season",
                                                   "Points Obtained This Season", "Points Obtained by Opponent This Season",
                                                   "Goals Scored This Season", "Goals Conceded by Opponent This Season"])
-            model = keras.models.load_model('../prediction_model')
+            model = keras.models.load_model('./prediction_model')
             predictions = model.predict(df_to_predict)
             return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
 

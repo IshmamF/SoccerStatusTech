@@ -1,5 +1,22 @@
 from taipy.gui import Markdown
-import requests
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv('pages/charts/EPL-Standings-2000-2022.csv')
+
+#team1 = df[df['Team']=='Manchester United']
+
+team_name_mapping = {
+    'Manchester United': 'Man United',
+    'Newcastle United': 'Newcastle',
+    'Tottenham Hotspur': 'Tottenham',
+    'West Ham United': 'West Ham',
+    'Wolverhampton Wanderers': 'Wolverhampton',
+    'Brighton & Hove Albion': 'Brighton Hove',
+    'Sheffield United': 'Sheffield Utd'
+}
+
+df['Team'] = df['Team'].replace(team_name_mapping)
 
 def nationalityChart(club, response):
     nationalities = {}
@@ -14,6 +31,17 @@ def nationalityChart(club, response):
                     nationalities[player['nationality']] += 1
     return logo,nationalities 
 
+layout = {
+    "yaxis": {
+      # Place the y axis on the left
+      "side": "left",
+      # and give it a title
+      "title": "Goals"
+    }
+}
+
+df = df[df['Team']=='Man United'].copy()
+
 data = {"Country":[], "Count":[]}
 logo = ''
 selected_team = ''
@@ -26,5 +54,6 @@ def toggle_choice(state):
         "Count": list(countries.values())
     }
 
+    state.df = df[df['Team']==state.selected_team].copy()
 
 charts_md = Markdown("charts.md")
