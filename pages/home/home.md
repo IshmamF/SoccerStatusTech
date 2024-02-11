@@ -10,11 +10,11 @@
 <|layout|gap=10px|class_name=container align_center|
 
 <center>
-<|{value1}|selector|lov=Arsenal;Aston Villa;Bournemouth;Brentford;Burnley;Wolverhampton;Brighton Hove; Chelsea;Crystal Palace;Everton;Fulham;Liverpool;Luton Town;Man City;Man United;Newcastle;Nottingham;Sheffield Utd;Tottenham;West Ham|dropdown|label=Team 1|>
+<|{value1}|selector|lov=Arsenal;Aston Villa;Bournemouth;Brentford;Burnley;Wolverhampton;Brighton Hove;Chelsea;Crystal Palace;Everton;Fulham;Liverpool;Luton Town;Man City;Man United;Newcastle;Nottingham;Sheffield Utd;Tottenham;West Ham|dropdown|label=Team 1|>
 </center>
 
 <center>
-<|{value2}|selector|lov=Arsenal;Aston Villa;Bournemouth;Brentford;Burnley;Wolverhampton;Brighton Hove; Chelsea;Crystal Palace;Everton;Fulham;Liverpool;Luton Town;Man City;Man United;Newcastle;Nottingham;Sheffield Utd;Tottenham;West Ham|dropdown|label=Team 2|>
+<|{value2}|selector|lov=Arsenal;Aston Villa;Bournemouth;Brentford;Burnley;Wolverhampton;Brighton Hove;Chelsea;Crystal Palace;Everton;Fulham;Liverpool;Luton Town;Man City;Man United;Newcastle;Nottingham;Sheffield Utd;Tottenham;West Ham|dropdown|label=Team 2|>
 </center>
 
 |>
