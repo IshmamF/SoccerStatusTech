@@ -26,14 +26,23 @@ light_theme = {
 dark_theme = {
     "palette": {
         "background": {
-            "default": "#660099"  
+            "default": "#471061"  
         },
         "primary": {"main": "#000000"}
     }
 }
 
-value1="select a team"
-value2="select a team"
+card = {
+    "palette": {
+        "background": {
+            "default": "#471061"  
+        },
+        "primary": {"main": "#000000"}
+    }
+}
+
+value1="team1"
+value2="team2"
 showGraphs = False
 
 app = Gui(pages=pages)
@@ -43,4 +52,4 @@ Gui.add_shared_variables(value1, value2, showGraphs)
 if __name__ == '__main__':
     tp.Core().run()
     
-    app.run(title="SoccerStatusTech", use_reloader=True, port=3000, light_theme=light_theme, dark_theme=dark_theme)
+    app.run(title="SoccerStatusTech", use_reloader=True, port=3636, light_theme=light_theme, dark_theme=dark_theme)
