@@ -9,6 +9,11 @@ home_team_2 = "H2"
 home_goals_2 = '0'
 away_team_2 = "A2"
 away_goals_2 = '0'
+team_1 = "T1"
+goals_1 = '0'
+team_2 = "T2"
+goals_2 = '0'
+empty = ''
 
 
 predictions_md = Markdown("predictions.md")
