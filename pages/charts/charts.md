@@ -1,6 +1,6 @@
 <br/>
 <br/>
-<|part|render={showGraphs}|
+<|part|render={showToggles}|
 <center>
 <|{selected_team}|toggle|lov={values}|on_change=toggle_choice|>
 </center>

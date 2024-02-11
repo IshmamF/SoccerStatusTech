@@ -6,6 +6,8 @@ df = pd.read_csv('pages/charts/EPL-Standings-2000-2022.csv')
 
 #team1 = df[df['Team']=='Manchester United']
 
+showGraphs = False
+
 team_name_mapping = {
     'Manchester United': 'Man United',
     'Newcastle United': 'Newcastle',
@@ -55,5 +57,7 @@ def toggle_choice(state):
     }
 
     state.dataframe = df[df['Team']==state.selected_team].copy()
+
+    state.showGraphs = True
 
 charts_md = Markdown("charts.md")

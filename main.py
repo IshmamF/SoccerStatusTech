@@ -50,13 +50,13 @@ card = {
 value1="select a team"
 value2="select a team"
 
-showGraphs = False
+showToggles = False
 
 app = Gui(pages=pages)
 
 values = ['team1','team2']
 
-Gui.add_shared_variables(values, showGraphs, response)
+Gui.add_shared_variables(values, showToggles, response)
 
 if __name__ == '__main__':
     tp.Core().run()
