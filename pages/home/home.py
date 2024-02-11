@@ -1,19 +1,7 @@
 import pandas as pd
 import requests
-import tensorflow as tf
+from tensorflow import keras
 from taipy.gui import Markdown
-
-test1 = "this is a test"
-
-def button_pressed(state):
-    state.showGraphs = True
-    state.values[0] = state.value1
-    state.values[1] = state.value2
-
-home_md = Markdown("home.md")
-
-value1 = "Arsenal"
-value2 = "Aston Villa"
 
 def generate_predictions(team):
     teams_to_id_mapping = {"Arsenal FC": "57", "AFC Bournemouth": "1044", "Aston Villa FC": "58", "Brentford FC": "402",
@@ -109,19 +97,16 @@ def generate_predictions(team):
                                                   "Goals Scored Last Season", "Goals Conceded by Opponent Last Season",
                                                   "Points Obtained This Season", "Points Obtained by Opponent This Season",
                                                   "Goals Scored This Season", "Goals Conceded by Opponent This Season"])
-            model = tf.keras.models.load_model('./prediction_model')
+            model = keras.models.load_model('../prediction_model')
             predictions = model.predict(df_to_predict)
             return homeTeam, str(round(predictions[0][0], 2)), awayTeam, str(round(predictions[1][0], 2))
-    
 
-def on_change(state, var_name, var_val):
-    if var_name == "value1":
-        state.value1 = var_val
-    else:
-        state.value2 = var_val
 
-    
 def button_pressed(state):
+    state.showGraphs = True
+    state.values[0] = state.value1
+    state.values[1] = state.value2
+
     team_names_mapping = {"Arsenal": "Arsenal FC", "Bournemouth": "AFC Bournemouth", "Aston Villa": "Aston Villa FC", 
                           "Brentford": "Brentford FC", "Brighton": "Brighton & Hove Albion FC", "Burnley": "Burnley FC",
                           "Chelsea": "Chelsea FC", "Crystal Palace": "Crystal Palace FC", "Everton": "Everton FC", 
@@ -133,6 +118,9 @@ def button_pressed(state):
     state['predictions'].home_team_1, state['predictions'].home_goals_1, state['predictions'].away_team_1, state['predictions'].away_goals_1 = generate_predictions(team_names_mapping[state.value1])
     state['predictions'].home_team_2, state['predictions'].home_goals_2, state['predictions'].away_team_2, state['predictions'].away_goals_2 = generate_predictions(team_names_mapping[state.value2])
     state['predictions'].showPred = True
+
+home_md = Markdown("home.md")    
+
     
     
 

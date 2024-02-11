@@ -2,7 +2,7 @@
 <|text-center|
 <br/>
 <h2>Expected Scoreline in Selected Teams' Next Game</h2>
->
+|>
 
 <|layout|gap=10px|class_name=container align_center|
 
