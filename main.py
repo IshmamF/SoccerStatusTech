@@ -38,7 +38,9 @@ showGraphs = False
 
 app = Gui(pages=pages)
 
-Gui.add_shared_variables(value1, value2, showGraphs)
+values = ['team1','team2']
+
+Gui.add_shared_variables(values, showGraphs)
 
 if __name__ == '__main__':
     tp.Core().run()
