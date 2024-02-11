@@ -1,11 +1,8 @@
 from taipy.gui import Markdown
 
-team1 = ''
-team2 = ''
-
 def button_pressed(state):
     state.showGraphs = True
-    #state.value1 = "".join(state.team1)
-    #state.value2 = "".join(state.team2)
+    state.values[0] = state.value1
+    state.values[1] = state.value2
 
 home_md = Markdown("home.md")
