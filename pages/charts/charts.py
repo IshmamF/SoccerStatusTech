@@ -4,7 +4,7 @@ import numpy as np
 
 df = pd.read_csv('pages/charts/EPL-Standings-2000-2022.csv')
 
-#team1 = df[df['Team']=='Manchester United']
+df = df.rename(columns={'GF': 'Goals Scored', 'GA': 'Goals Conceded', 'Pts': 'Points'})
 
 showGraphs = False
 
@@ -15,7 +15,8 @@ team_name_mapping = {
     'West Ham United': 'West Ham',
     'Wolverhampton Wanderers': 'Wolverhampton',
     'Brighton & Hove Albion': 'Brighton Hove',
-    'Sheffield United': 'Sheffield Utd'
+    'Sheffield United': 'Sheffield Utd',
+    'Manchester City' : 'Man City'
 }
 
 df['Team'] = df['Team'].replace(team_name_mapping)
@@ -39,10 +40,14 @@ layout = {
       "side": "left",
       # and give it a title
       "title": "Games"
+    },
+    "title": {
+        "text" : "Win vs Losses Throughout the Season(s)"
     }
 }
 
 dataframe = {"Season":[], "W":[], "L":[]}
+allFrame = {"Season":[], "Goals Scored":[], "Goals Conceded":[], "Points":[]}
 
 data = {"Country":[], "Count":[]}
 logo = ''
@@ -55,9 +60,10 @@ def toggle_choice(state):
         "Country": list(countries.keys()),
         "Count": list(countries.values())
     }
+    
 
     state.dataframe = df[df['Team']==state.selected_team].copy()
-
+    state.allFrame = df[df['Team']==state.selected_team].copy()
     state.showGraphs = True
 
 charts_md = Markdown("charts.md")
