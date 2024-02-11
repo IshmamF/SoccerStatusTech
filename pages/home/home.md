@@ -4,7 +4,7 @@
 <br/>
 <br/>
 <br/>
-<h2>Welcome to the English Premier League Visualization Tool!</h2>
+<h2>Welcome to the English Premier League Data Science Tool!</h2>
 >
 <|text-center|
 <br/>
