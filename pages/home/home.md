@@ -44,5 +44,5 @@
 }
 </style>
 <br/>
-<|Generate Visualization|button|on_action=button_pressed|class_name=button|>
+<|Generate|button|on_action=button_pressed|class_name=button|>
 |>

@@ -36,11 +36,11 @@ layout = {
       # Place the y axis on the left
       "side": "left",
       # and give it a title
-      "title": "Goals"
+      "title": "Games"
     }
 }
 
-df = df[df['Team']=='Man United'].copy()
+dataframe = {"Season":[], "W":[], "L":[]}
 
 data = {"Country":[], "Count":[]}
 logo = ''
@@ -54,6 +54,6 @@ def toggle_choice(state):
         "Count": list(countries.values())
     }
 
-    state.df = df[df['Team']==state.selected_team].copy()
+    state.dataframe = df[df['Team']==state.selected_team].copy()
 
 charts_md = Markdown("charts.md")
