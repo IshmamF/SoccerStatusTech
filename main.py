@@ -7,6 +7,12 @@ from pages.prediction.predictions import predictions_md
 from pages.charts.charts import charts_md
 from pages.root import root
 
+import requests
+
+API_URL = "http://api.football-data.org/v4/competitions/PL/teams"
+headers = { 'X-Auth-Token': 'bafc651292bf4fda9539e3a88814cb9e' }
+response = requests.get(API_URL, headers=headers)
+
 pages = {
     '/':root,
     'home':home_md,
@@ -40,7 +46,7 @@ app = Gui(pages=pages)
 
 values = ['team1','team2']
 
-Gui.add_shared_variables(values, showGraphs)
+Gui.add_shared_variables(values, showGraphs, response)
 
 if __name__ == '__main__':
     tp.Core().run()

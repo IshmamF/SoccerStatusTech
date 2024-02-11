@@ -1,11 +1,7 @@
 from taipy.gui import Markdown
 import requests
 
-API_URL = "http://api.football-data.org/v4/competitions/PL/teams"
-headers = { 'X-Auth-Token': 'bafc651292bf4fda9539e3a88814cb9e' }
-response = requests.get(API_URL, headers=headers)
-
-def nationalityChart(club):
+def nationalityChart(club, response):
     nationalities = {}
     logo = ''
     for team in response.json()['teams']:
@@ -18,17 +14,17 @@ def nationalityChart(club):
                     nationalities[player['nationality']] += 1
     return logo,nationalities 
 
+data = {"Country":[], "Count":[]}
+logo = ''
+selected_team = ''
+def toggle_choice(state):
 
-team = 'Arsenal'
+    state.logo, countries = nationalityChart(state.selected_team, state.response) 
 
-logo, countries = nationalityChart(team) 
-
-data = {
-    "Country": list(countries.keys()),
-    "Count": list(countries.values())
-}
-
-showTeam = True
+    state.data = {
+        "Country": list(countries.keys()),
+        "Count": list(countries.values())
+    }
 
 
 charts_md = Markdown("charts.md")
