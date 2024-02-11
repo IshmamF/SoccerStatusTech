@@ -32,11 +32,16 @@ dark_theme = {
     }
 }
 
-value1="Arsenal"
-value2="Aston Villa"
+
+value1="select a team"
+value2="select a team"
+showGraphs = False
+
 app = Gui(pages=pages)
 
-Gui.add_shared_variables(value1, value2)
+values = ['team1','team2']
+
+Gui.add_shared_variables(values, showGraphs)
 
 if __name__ == '__main__':
     tp.Core().run()
